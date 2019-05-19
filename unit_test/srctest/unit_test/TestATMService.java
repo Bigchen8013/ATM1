@@ -34,7 +34,7 @@ class TestATMService {
 		assertEquals(1000, atm1.inquiry("2"));
 		
 		atm1.withDraw("1", 100);
-		aeesrtEquals(100,atm1.inquiry("1"));
+		aeesrtEquals(150,atm1.inquiry("1"));
 	}
 
 	//存款
