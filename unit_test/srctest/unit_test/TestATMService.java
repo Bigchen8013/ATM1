@@ -33,8 +33,8 @@ class TestATMService {
 		atm1.withDraw("2", 1001);
 		assertEquals(1000, atm1.inquiry("2"));
 		
-		//atm1.withDraw("1", 100);
-		//aeesrtEquals(150,atm1.inquiry("1"));
+		atm1.withDraw("1", 100);
+		aeesrtEquals(150,atm1.inquiry("1"));
 	}
 
 	//存款
