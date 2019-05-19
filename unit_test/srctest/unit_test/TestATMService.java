@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 class TestATMService {
 	
-	//Ìí¼ÓÒ»¸öĞÂµÄÕË»§
+	//æ·»åŠ ä¸€ä¸ªæ–°çš„è´¦æˆ·
 	Account a1=new Account("3","333333",500);
-	//ÓëÒÑ´æÔÚµÄ1ÕË»§¿¨ºÅÏàÍ¬£¬¿´ÊÇ·ñÄÜÌí¼Ó´ËÕË»§
+	//ä¸å·²å­˜åœ¨çš„1è´¦æˆ·å¡å·ç›¸åŒï¼Œçœ‹æ˜¯å¦èƒ½æ·»åŠ æ­¤è´¦æˆ·
 	Account a2=new Account("1", "1212", 300);
 	
 	MockDbConnection mDbConnection=new MockDbConnection();
@@ -16,25 +16,28 @@ class TestATMService {
 	ATMService atm1=new ATMService(mDbConnection);
 
 	
-	//È¡¿î
+	//å–æ¬¾
 	@Test
 	void testWithDraw() {
 		atm1.withDraw("1", 100);
 		assertEquals(200,atm1.inquiry("1") );
 		
-		//È¡¿î³¬³öÓà¶îµÄÇé¿ö²Ù×÷Ê§°Ü
+		//å–æ¬¾è¶…å‡ºä½™é¢çš„æƒ…å†µæ“ä½œå¤±è´¥
 		atm1.withDraw("1", 201);
 		assertEquals(200, atm1.inquiry("1"));
 		
 		atm1.withDraw("2", 1000);
 		assertEquals(1000, atm1.inquiry("2"));
 		
-		//È¡¿î³¬³öÓà¶îµÄÇé¿ö²Ù×÷Ê§°Ü
+		//å–æ¬¾è¶…å‡ºä½™é¢çš„æƒ…å†µæ“ä½œå¤±è´¥
 		atm1.withDraw("2", 1001);
 		assertEquals(1000, atm1.inquiry("2"));
+		
+		atm1.withDraw("1", 100);
+		aeesrtEquals(100,atm1.inquiry("1"));
 	}
 
-	//´æ¿î
+	//å­˜æ¬¾
 	@Test
 	void testDeposit() {
 		atm1.deposit("1", 100);
@@ -44,16 +47,16 @@ class TestATMService {
 		assertEquals(2200, atm1.inquiry("2"));
 	}
 
-	//×ªÕË
+	//è½¬è´¦
 	@Test
 	void testTransfer() {
 		
-		//×ªÕË³¬¹ıÓà¶îµÄÇé¿ö£¬×ªÕËÊ§°Ü
+		//è½¬è´¦è¶…è¿‡ä½™é¢çš„æƒ…å†µï¼Œè½¬è´¦å¤±è´¥
 		atm1.transfer("1", "2", 301);
 		assertEquals(300, atm1.inquiry("1"));
 		assertEquals(2000, atm1.inquiry("2"));
 		
-		//×ªÕË³¬¹ıÓà¶îµÄÇé¿ö£¬×ªÕËÊ§°Ü
+		//è½¬è´¦è¶…è¿‡ä½™é¢çš„æƒ…å†µï¼Œè½¬è´¦å¤±è´¥
 		atm1.transfer("2", "1", 2001);
 		assertEquals(300, atm1.inquiry("1"));
 		assertEquals(2000, atm1.inquiry("2"));
@@ -69,14 +72,14 @@ class TestATMService {
 		
 	}
 
-	//²éÑ¯ÕË»§Óà¶î
+	//æŸ¥è¯¢è´¦æˆ·ä½™é¢
 	@Test
 	void testInquiry() {
 		assertEquals(300, atm1.inquiry("1"));
 		assertEquals(2000, atm1.inquiry("2"));
 	}
 
-	//Ìí¼ÓÕË»§
+	//æ·»åŠ è´¦æˆ·
 	@Test
 	void testAddAccount() {
 		mDbConnection.addAccount(a1);
